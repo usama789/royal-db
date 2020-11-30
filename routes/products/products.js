@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const {Product } = require('../../model/model');
 // var validateProduct=require('../../middleware/validateProduct');
+var checkSessionAuth = require("../../middlewares/checkSessionAuth");
 
 //showing product on the page
 router.get('/',async function(req,res){
@@ -9,6 +10,10 @@ router.get('/',async function(req,res){
     console.log(products);
     res.render("list",{products});
 });
+//check session
+router.get('/add',checkSessionAuth, async function (req, res, next) {
+    res.render("products/add");
+  }); 
 //show products list
 router.get('/add',function(req,res){
     res.render("products/add");
@@ -22,12 +27,12 @@ router.post('/add', async function(req,res){
 });
 
 //delete and redirect to that page
-router.get('/delete/:index',async function(req,res){
+router.get('/delete/:index',checkSessionAuth,async function(req,res){
     var product =await Product.findByIdAndDelete(req.params.index);
     res.redirect('/products');
 });
 //getting data of the form
-router.get('/edit/:index',async function(req,res){
+router.get('/edit/:index',checkSessionAuth,async function(req,res){
     var product = await Product.findById(req.params.index);
     res.render('products/edit',{product});
 });
