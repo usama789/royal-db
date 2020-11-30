@@ -9,7 +9,7 @@ router.get('/register', function(req, res, next) {
 router.post('/register', async function (req, res, next) {
   let user = new User(req.body);
   await user.save();
-  res.redirect('/'); 
+  res.redirect('/login'); 
 });
 
 router.get('/login', function(req, res, next) {

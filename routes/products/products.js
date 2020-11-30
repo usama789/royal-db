@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const {Product } = require('../../model/model');
-// var validateProduct=require('../../middleware/validateProduct');
+var validateProduct=require('../../middlewares/validateProduct');
 var checkSessionAuth = require("../../middlewares/checkSessionAuth");
 
 //showing product on the page
@@ -19,7 +19,7 @@ router.get('/add',function(req,res){
     res.render("products/add");
 });
 //storing products using form
-router.post('/add', async function(req,res){
+router.post('/add',validateProduct, async function(req,res){
     
     let product = new Product(req.body);
     await product.save();
@@ -59,7 +59,7 @@ router.get('/cart/remove/:index',async function(req,res){
     res.redirect('/cart');
 });
 //posting edit record record
-router.post('/edit/:index',async function(req,res){
+router.post('/edit/:index',validateProduct,async function(req,res){
     var product =await Product.findById(req.params.index);
     product.Name=req.body.Name;
     product.Size=req.body.Size;
