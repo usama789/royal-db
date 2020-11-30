@@ -1,15 +1,23 @@
 extends ../layout
-
 block content
-    h1 Add New Products
+    h2 Add New Products
     form(action="/products/add",method="post")
         .form-group
             label(for="name") Product Name
-            input#name(type="text", class="form-control", name="name")
-
+                input#name(type="text" ,class="form-control" name="Name") 
         .form-group
-            label(for="price") Product Name
-            input#price(type="text", class="form-control", name="price")
-
-        input(type="submit", class="btn btn-info")
-    
+            label(for="code") Product Code
+                input#ProductCode(type="text" ,class="form-control" name="ProductCode")
+        .form-group
+            label(for="Size") Size
+                input#size(type="text" ,class="form-control" name="Size")
+        .form-group
+            label(for="availability") Availability
+                input#availability(type="text" ,class="form-control" name="Availability")
+        .form-group
+            label(for="price") Product Price
+                input#price(type="text" ,class="form-control" name="Price")
+        .form-group
+            label(for="quantity") Quantity
+                input#quantity(type="text" ,class="form-control" name="Quantity")
+        input(type="submit",class="btn btn-info") 
